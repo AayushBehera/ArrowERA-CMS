@@ -1,0 +1,1 @@
+Suggest a database schema for a content type named: {{contentType}}

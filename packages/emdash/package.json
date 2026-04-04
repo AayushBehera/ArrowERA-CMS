@@ -1,0 +1,19 @@
+{
+  "name": "@arrorera/emdash",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@arrorera/db": "*",
+    "@arrorera/plugin-runtime": "*",
+    "@arrorera/ai": "*",
+    "@arrorera/realtime": "*",
+    "@arrorera/builder": "*",
+    "@arrorera/plugin-marketplace": "*",
+    "@arrorera/analytics": "*",
+    "@arrorera/security": "*",
+    "@arrorera/workflow": "*",
+    "@arrorera/cache": "*",
+    "@arrorera/api": "*",
+    "@arrorera/team": "*"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "notify-on-publish",
+  "version": "1.0.0",
+  "capabilities": ["email:send"]
+}

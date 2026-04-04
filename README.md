@@ -1,11 +1,27 @@
-<div align="center">
+# ArrorEra CMS
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+A modern, serverless-ready CMS built with Astro and TypeScript.
 
-  <h1>Built with AI Studio</h2>
+## Architecture
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+- **Frontend:** Astro
+- **Backend:** Serverless (Cloudflare Workers compatible)
+- **DB:** D1 / SQLite / Postgres
+- **Auth:** Passkeys + OAuth
+- **Plugins:** Sandboxed Workers
+- **Content:** Structured JSON (Portable Text)
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## Project Structure
 
-</div>
+- `apps/` - Runnable projects (like the demo app)
+- `packages/` - Core engine packages (`emdash`, `db`, `auth`, etc.)
+- `plugins/` - Sandboxed extensions
+- `templates/` - Starter templates
+
+## Getting Started
+
+```bash
+npm install
+npm run seed
+npm run dev
+```

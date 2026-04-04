@@ -1,0 +1,16 @@
+[
+  {
+    "id": "mkyyj8n",
+    "type": "posts",
+    "data": "{\"title\":\"Hello World from ArrorEra CMS\",\"excerpt\":\"This is a sample post created by the seed script.\",\"content\":[{\"type\":\"paragraph\",\"children\":[{\"text\":\"Welcome to the future of content management.\"}]}]}",
+    "created_at": "2026-04-04T14:32:00.534Z",
+    "updated_at": "2026-04-04T14:32:00.534Z"
+  },
+  {
+    "id": "hsw6z54",
+    "type": "posts",
+    "data": "{\"title\":\"The Power of Plugins\",\"excerpt\":\"Learn how the sandboxed plugin system works.\",\"content\":[{\"type\":\"paragraph\",\"children\":[{\"text\":\"Plugins run in an isolated environment with strict capabilities.\"}]}]}",
+    "created_at": "2026-04-04T14:32:00.535Z",
+    "updated_at": "2026-04-04T14:32:00.535Z"
+  }
+]

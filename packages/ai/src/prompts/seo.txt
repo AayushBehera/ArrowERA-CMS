@@ -1,0 +1,1 @@
+Generate SEO metadata (title, description, keywords) for the following content: {{content}}
