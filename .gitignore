@@ -1,8 +1,61 @@
+```gitignore
+# Dependencies
 node_modules/
-build/
+
+# Build outputs
 dist/
-coverage/
-.DS_Store
+build/
+target/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.ENV
+.python-version
+
+# Logs
 *.log
-.env*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*
 !.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+*.coverage
+
+# Temporary files
+*.tmp
+*.temp
+```
+
+Wait, let me reconsider. Looking at the modified files, they are all TypeScript source files in a monorepo structure. There are no build artifacts, dependency directories, or temporary files shown in the changes. The current .gitignore appears to be empty.
+
+Since only source code files (.ts) are being modified, no additional ignores are needed.
+
+```gitignore
+
+```
