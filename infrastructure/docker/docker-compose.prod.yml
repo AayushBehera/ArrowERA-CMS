@@ -1,0 +1,120 @@
+# ArrowERA CMS - Production Docker Compose
+# Use this for production deployments
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: arrowera-postgres-prod
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-arrowera}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Error: POSTGRES_PASSWORD not set}
+      POSTGRES_DB: ${POSTGRES_DB:-arrowera_cms}
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-arrowera}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - arrowera_network
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: arrowera-redis-prod
+    restart: always
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-changeme}
+    volumes:
+      - redis_data_prod:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-changeme}", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - arrowera_network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+
+  # Application
+  app:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile
+    container_name: arrowera-app-prod
+    restart: always
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-arrowera}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-arrowera_cms}
+      REDIS_URL: redis://:${REDIS_PASSWORD:-changeme}@redis:6379
+      AUTH_SECRET: ${AUTH_SECRET:?Error: AUTH_SECRET not set}
+      APP_URL: ${APP_URL:?Error: APP_URL not set}
+      PORT: 3000
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      CSRF_SECRET: ${CSRF_SECRET:?Error: CSRF_SECRET not set}
+    ports:
+      - "${HOST_PORT:-3000}:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - arrowera_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      replicas: ${APP_REPLICAS:-2}
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: arrowera-nginx-prod
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - app
+    networks:
+      - arrowera_network
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  postgres_data_prod:
+    driver: local
+  redis_data_prod:
+    driver: local
+
+networks:
+  arrowera_network:
+    driver: bridge
