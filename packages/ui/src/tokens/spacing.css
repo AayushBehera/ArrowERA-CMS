@@ -1,0 +1,54 @@
+/* ───────────────────────────────────────────
+   ArrowERA Design System — Spacing
+   8px grid system
+   ─────────────────────────────────────────── */
+
+:root {
+  --ae-space-0: 0;
+  --ae-space-1: 0.25rem;  /* 4px  */
+  --ae-space-2: 0.5rem;   /* 8px  */
+  --ae-space-3: 0.75rem;  /* 12px */
+  --ae-space-4: 1rem;     /* 16px */
+  --ae-space-5: 1.25rem;  /* 20px */
+  --ae-space-6: 1.5rem;   /* 24px */
+  --ae-space-8: 2rem;     /* 32px */
+  --ae-space-12: 3rem;    /* 48px */
+  --ae-space-16: 4rem;    /* 64px */
+  --ae-space-24: 6rem;    /* 96px */
+
+  /* Container max-widths */
+  --ae-container-sm: 768px;
+  --ae-container-md: 1024px;
+  --ae-container-lg: 1280px;
+  --ae-container-xl: 1440px;
+
+  /* Component heights */
+  --ae-sidebar-collapsed: 64px;
+  --ae-sidebar-expanded: 240px;
+  --ae-topbar-height: 64px;
+
+  /* Border radius */
+  --ae-radius-none: 0;
+  --ae-radius-sm: 4px;
+  --ae-radius-md: 6px;
+  --ae-radius-lg: 8px;
+  --ae-radius-xl: 12px;
+  --ae-radius-full: 9999px;
+
+  /* Shadows — minimal, only for elevation */
+  --ae-shadow-none: none;
+  --ae-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --ae-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --ae-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --ae-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.10);
+  --ae-shadow-overlay: 0 16px 48px rgba(0, 0, 0, 0.12);
+}
+
+.dark,
+[data-theme="dark"] {
+  --ae-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.20);
+  --ae-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.30);
+  --ae-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.40);
+  --ae-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.50);
+  --ae-shadow-overlay: 0 16px 48px rgba(0, 0, 0, 0.60);
+}

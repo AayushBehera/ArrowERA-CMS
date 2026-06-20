@@ -1,0 +1,22 @@
+{
+  "name": "@arrorera/ui",
+  "version": "1.0.0",
+  "description": "ArrowERA Design System — premium monochrome UI components",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens": "./src/tokens/index.css",
+    "./icons": "./src/icons/index.ts"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
+    "typescript": "^5.4.2"
+  }
+}

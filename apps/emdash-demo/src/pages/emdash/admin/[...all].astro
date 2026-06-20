@@ -1,0 +1,17 @@
+---
+// This is a catch-all route for the admin and client SPA
+import AppShell from '../../../components/AppShell';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>ArrorEra Portal</title>
+  </head>
+  <body>
+    <div id="admin-root">
+      <AppShell client:only="react" />
+    </div>
+  </body>
+</html>

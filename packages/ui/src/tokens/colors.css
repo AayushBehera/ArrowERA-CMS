@@ -1,0 +1,71 @@
+/* ───────────────────────────────────────────
+   ArrowERA Design System — Color Tokens
+   Pure monochrome. Light & Dark.
+   ─────────────────────────────────────────── */
+
+:root {
+  /* Background */
+  --ae-bg: #ffffff;
+  --ae-fg: #000000;
+
+  /* Surfaces */
+  --ae-surface: #fafafa;
+  --ae-surface-secondary: #f4f4f5;
+
+  /* Borders */
+  --ae-border: #e4e4e7;
+  --ae-border-light: #f0f0f0;
+  --ae-border-strong: #d4d4d8;
+
+  /* Text */
+  --ae-text-primary: #000000;
+  --ae-text-secondary: #52525b;
+  --ae-text-muted: #71717a;
+  --ae-text-disabled: #a1a1aa;
+
+  /* Interaction */
+  --ae-hover: #f5f5f5;
+  --ae-active: #efefef;
+  --ae-focus-ring: rgba(0, 0, 0, 0.12);
+
+  /* System (only colors allowed beyond monochrome) */
+  --ae-success: #18181b;
+  --ae-warning: #3f3f46;
+  --ae-error: #18181b;
+  --ae-info: #27272a;
+
+  /* Overlay */
+  --ae-overlay: rgba(0, 0, 0, 0.04);
+  --ae-backdrop: rgba(0, 0, 0, 0.20);
+}
+
+/* ── Dark Mode ── */
+.dark,
+[data-theme="dark"] {
+  --ae-bg: #000000;
+  --ae-fg: #ffffff;
+
+  --ae-surface: #0a0a0a;
+  --ae-surface-secondary: #111111;
+
+  --ae-border: #222222;
+  --ae-border-light: #1a1a1a;
+  --ae-border-strong: #2a2a2a;
+
+  --ae-text-primary: #ffffff;
+  --ae-text-secondary: #a1a1aa;
+  --ae-text-muted: #71717a;
+  --ae-text-disabled: #52525b;
+
+  --ae-hover: #121212;
+  --ae-active: #181818;
+  --ae-focus-ring: rgba(255, 255, 255, 0.12);
+
+  --ae-success: #e4e4e7;
+  --ae-warning: #a1a1aa;
+  --ae-error: #e4e4e7;
+  --ae-info: #d4d4d8;
+
+  --ae-overlay: rgba(255, 255, 255, 0.04);
+  --ae-backdrop: rgba(0, 0, 0, 0.50);
+}

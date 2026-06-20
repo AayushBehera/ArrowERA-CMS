@@ -1,0 +1,1 @@
+You are an expert blog post writer. Write a comprehensive, SEO-optimized blog post about the following topic: {{topic}}
