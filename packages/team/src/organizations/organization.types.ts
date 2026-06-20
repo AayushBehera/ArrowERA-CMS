@@ -10,8 +10,8 @@ export interface Organization {
   subscriptionStatus: 'active' | 'trialing' | 'past_due' | 'canceled' | 'deleted';
   trialEndsAt: Date | null;
   subscriptionEndsAt: Date | null;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | null;
+  updatedAt: Date | null;
   deletedAt: Date | null;
 }
 
@@ -29,12 +29,12 @@ export interface OrganizationWithMembers extends Organization {
     user: {
       id: string;
       email: string;
-      status: string;
-    };
+      status: string | null;
+    } | null;
     membership: {
       id: string;
-      role: string | null;
-      status: string;
+      roleId: string | null;
+      status: string | null;
       joinedAt: Date | null;
     };
   }>;

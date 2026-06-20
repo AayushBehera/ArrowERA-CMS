@@ -84,7 +84,7 @@ describe('DatabaseClient', () => {
 
     it('should fall back to query when queryOne not available', async () => {
       const adapterWithoutQueryOne: DatabaseAdapter = {
-        query: vi.fn(async () => ({ rows: [{ id: 1, name: 'Test' }], rowCount: 1 })),
+        query: vi.fn(async () => ({ rows: [{ id: 1, name: 'Test' }], rowCount: 1 })) as DatabaseAdapter['query'],
         execute: vi.fn(async () => {}),
       };
       const client2 = new DatabaseClient(adapterWithoutQueryOne);
@@ -112,7 +112,7 @@ describe('DatabaseClient', () => {
 
     it('should fall back to query when queryValue not available', async () => {
       const adapterWithoutQueryValue: DatabaseAdapter = {
-        query: vi.fn(async () => ({ rows: [{ count: '5' }], rowCount: 1 })),
+        query: vi.fn(async () => ({ rows: [{ count: '5' }], rowCount: 1 })) as DatabaseAdapter['query'],
         execute: vi.fn(async () => {}),
       };
       const client2 = new DatabaseClient(adapterWithoutQueryValue);

@@ -1,14 +1,14 @@
-import { DatabaseAdapter } from '../client';
+import { DatabaseAdapter, QueryResult } from '../client';
 
 export class D1Adapter implements DatabaseAdapter {
   constructor(private db: any) {} // Cloudflare D1 binding
 
-  query(sql: string, params: any[] = []) {
+  async query<T = any>(sql: string, params: any[] = []): Promise<QueryResult<T>> {
     console.log(`[D1] Executing query: ${sql}`);
-    return [];
+    return { rows: [], rowCount: 0 };
   }
 
-  execute(sql: string, params: any[] = []) {
+  async execute(sql: string, params: any[] = []): Promise<void> {
     console.log(`[D1] Executing statement: ${sql}`);
   }
 }

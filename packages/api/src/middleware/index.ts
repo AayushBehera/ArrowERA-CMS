@@ -1,7 +1,7 @@
-import { RateLimiter } from '../../security/src/rate-limit';
-import { ApiKeyManager } from '../../security/src/api-keys';
-import { PermissionChecker } from '../../security/src/permissions';
-import { AuditLogger } from '../../security/src/audit-log';
+import { RateLimiter } from '@arrowera/security';
+import { ApiKeyManager } from '@arrowera/security';
+import { PermissionChecker } from '@arrowera/security';
+import { AuditLogger } from '@arrowera/security';
 
 const rateLimiter = new RateLimiter();
 const apiKeyManager = new ApiKeyManager();

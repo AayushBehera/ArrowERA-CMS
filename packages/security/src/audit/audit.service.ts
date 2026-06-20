@@ -1,4 +1,4 @@
-import { eq, and } from 'drizzle-orm';
+import { eq, and, sql } from 'drizzle-orm';
 import { db } from '@arrowera/db';
 import { auditLogs } from '@arrowera/db/schema';
 import type { AuditLog, CreateAuditLogInput, AuditLogFilters } from './audit.types';
@@ -65,11 +65,11 @@ export class AuditService {
     }
 
     if (filters.startDate) {
-      conditions.push(db.sql`${auditLogs.createdAt} >= ${filters.startDate}`);
+      conditions.push(sql`${auditLogs.createdAt} >= ${filters.startDate}`);
     }
 
     if (filters.endDate) {
-      conditions.push(db.sql`${auditLogs.createdAt} <= ${filters.endDate}`);
+      conditions.push(sql`${auditLogs.createdAt} <= ${filters.endDate}`);
     }
 
     const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
@@ -172,7 +172,7 @@ export class AuditService {
     const cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - retentionDays);
 
-    const result = await db.delete(auditLogs).where(db.sql`${auditLogs.createdAt} < ${cutoffDate}`);
+    const result = await db.delete(auditLogs).where(sql`${auditLogs.createdAt} < ${cutoffDate}`);
     return result.rowCount || 0;
   }
 
@@ -180,7 +180,7 @@ export class AuditService {
     return {
       id: row.id,
       actorId: row.actorId,
-      actorType: row.actorType,
+      actorType: row.actorType ?? 'user',
       action: row.action,
       resourceType: row.resourceType,
       resourceId: row.resourceId,
@@ -193,7 +193,7 @@ export class AuditService {
       severity: row.severity as 'debug' | 'info' | 'warning' | 'error' | 'critical',
       statusCode: row.statusCode,
       metadata: row.metadata as Record<string, unknown>,
-      createdAt: row.createdAt,
+      createdAt: row.createdAt ?? new Date(),
     };
   }
 }

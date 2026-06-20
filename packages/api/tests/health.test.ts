@@ -93,7 +93,7 @@ describe('HealthService', () => {
         rss: 50000,
         external: 1000,
         arrayBuffers: 0,
-      }));
+      })) as unknown as typeof process.memoryUsage;
 
       service = new HealthService();
       const result = await service.check();

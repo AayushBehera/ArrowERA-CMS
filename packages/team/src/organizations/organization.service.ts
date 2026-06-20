@@ -1,4 +1,4 @@
-import { eq, and, desc } from 'drizzle-orm';
+import { eq, and, desc, isNull } from 'drizzle-orm';
 import { db } from '@arrowera/db';
 import { organizations, workspaces, memberships, users } from '@arrowera/db/schema';
 import type { Organization, CreateOrganizationInput, OrganizationWithMembers } from './organization.types';
@@ -37,7 +37,7 @@ export class OrganizationService {
    * Get organization by ID
    */
   static async getOrganizationById(id: string): Promise<OrganizationWithMembers | null> {
-    const [org] = await db.select().from(organizations).where(and(eq(organizations.id, id), !organizations.deletedAt ? true : true)).limit(1);
+    const [org] = await db.select().from(organizations).where(and(eq(organizations.id, id), isNull(organizations.deletedAt))).limit(1);
 
     if (!org) {
       return null;

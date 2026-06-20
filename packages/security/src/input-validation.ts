@@ -90,7 +90,7 @@ export class InputValidator {
    */
   createMiddleware<T>(
     source: ValidationSource,
-    schema: z.ZodSchema<T>,
+    schema: z.ZodType<T, z.ZodTypeDef, any>,
   ) {
     const self = this;
 

@@ -13,6 +13,8 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
-    open: true
+    // Disabled so `astro dev` boots cleanly in headless/CI environments where
+    // there is no browser to launch (avoids `spawn xdg-open ENOENT`).
+    open: false
   }
 });
