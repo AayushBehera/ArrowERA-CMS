@@ -298,15 +298,22 @@ export function createRequestLoggingMiddleware() {
     // Log response on finish
     res.on('finish', () => {
       const duration = Date.now() - startTime;
-      const level = res.statusCode >= 500 ? 'error' : res.statusCode >= 400 ? 'warn' : 'info';
-      
-      requestLogger[level](`${req.method} ${req.path} ${res.statusCode}`, {
+      const message = `${req.method} ${req.path} ${res.statusCode}`;
+      const context: LogContext = {
         method: req.method,
         path: req.path,
         statusCode: res.statusCode,
         duration,
-        contentLength: res.get('content-length')
-      });
+        contentLength: res.get('content-length'),
+      };
+
+      if (res.statusCode >= 500) {
+        requestLogger.error(message, undefined, context);
+      } else if (res.statusCode >= 400) {
+        requestLogger.warn(message, context);
+      } else {
+        requestLogger.info(message, context);
+      }
     });
     
     next();

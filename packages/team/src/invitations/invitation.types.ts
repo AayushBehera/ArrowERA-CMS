@@ -11,7 +11,7 @@ export interface Invitation {
   acceptedAt: Date | null;
   declinedAt: Date | null;
   revokedAt: Date | null;
-  createdAt: Date;
+  createdAt: Date | null;
 }
 
 export interface CreateInvitationInput {

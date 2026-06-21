@@ -13,6 +13,8 @@ import type {
   AuthenticationResponseJSON,
   AuthenticatorTransportFuture,
   CredentialDeviceType,
+  PublicKeyCredentialCreationOptionsJSON,
+  PublicKeyCredentialRequestOptionsJSON,
   RegistrationResponseJSON,
 } from '@simplewebauthn/server';
 
@@ -23,7 +25,7 @@ export interface PasskeyRegistrationOptions {
 }
 
 export interface PasskeyRegistrationResult {
-  options: PublicKeyCredentialCreationOptions;
+  options: PublicKeyCredentialCreationOptionsJSON;
   challenge: string;
 }
 
@@ -65,7 +67,7 @@ export class PasskeyService {
     const regOptions = await generateRegistrationOptions({
       rpName: this.rpName,
       rpID: this.rpID,
-      userID: options.userId,
+      userID: new TextEncoder().encode(options.userId),
       userName: options.userName,
       userDisplayName: options.userDisplayName,
       attestationType: 'none',
@@ -109,14 +111,15 @@ export class PasskeyService {
         };
       }
 
-      const { credential, aaguid } = verification.registrationInfo;
+      const { credential, credentialDeviceType, credentialBackedUp } =
+        verification.registrationInfo;
 
       const storedCredential: StoredCredential = {
         id: credential.id,
         publicKey: Buffer.from(credential.publicKey).toString('base64'),
         counter: credential.counter,
-        deviceType: credential.deviceType,
-        backedUp: credential.backedUp,
+        deviceType: credentialDeviceType,
+        backedUp: credentialBackedUp,
         transports: response.response.transports,
         createdAt: new Date(),
       };
@@ -140,7 +143,7 @@ export class PasskeyService {
     allowedCredentials: StoredCredential[] = [],
     userVerification: 'required' | 'preferred' | 'discouraged' = 'preferred'
   ): Promise<{
-    options: PublicKeyCredentialRequestOptions;
+    options: PublicKeyCredentialRequestOptionsJSON;
     challenge: string;
   }> {
     const authOptions = await generateAuthenticationOptions({

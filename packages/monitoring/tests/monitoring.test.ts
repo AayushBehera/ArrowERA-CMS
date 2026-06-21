@@ -78,14 +78,16 @@ describe('Gauge', () => {
     expect(gauge.get()).toBeLessThanOrEqual(after);
   });
 
-  it('should time a function using time()', (done) => {
+  it('should time a function using time()', () => {
     const gauge = new Gauge('test_duration', 'Duration');
     const stop = gauge.time();
-    setTimeout(() => {
-      stop();
-      expect(gauge.get()).toBeGreaterThan(0);
-      done();
-    }, 10);
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        stop();
+        expect(gauge.get()).toBeGreaterThan(0);
+        resolve();
+      }, 10);
+    });
   });
 });
 
@@ -122,15 +124,17 @@ describe('Histogram', () => {
     expect(stats.count).toBe(2);
   });
 
-  it('should time a function with startTimer()', (done) => {
+  it('should time a function with startTimer()', () => {
     const histogram = new Histogram('test_timer', 'Timer test');
     const stop = histogram.startTimer();
-    setTimeout(() => {
-      const duration = stop();
-      expect(duration).toBeGreaterThan(0);
-      expect(histogram.getStats().count).toBe(1);
-      done();
-    }, 10);
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        const duration = stop();
+        expect(duration).toBeGreaterThan(0);
+        expect(histogram.getStats().count).toBe(1);
+        resolve();
+      }, 10);
+    });
   });
 
   it('should reset all data', () => {

@@ -1,4 +1,4 @@
-import { createIcon } from '../utils';
+import { createIcon } from './utils';
 
 export const IconToggleLeft = createIcon('IconToggleLeft', (
   <>

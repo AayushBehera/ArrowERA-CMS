@@ -273,8 +273,19 @@ export class Config {
   }
 }
 
-// Export singleton instance
-export const config = Config.getInstance();
+// Export singleton instance.
+//
+// Resolved lazily via a Proxy so that merely importing this module has no side
+// effects: environment validation (which may call process.exit on failure) is
+// deferred until the config is actually accessed. This keeps the module safe to
+// import from tests and tooling that do not provide a full runtime environment.
+export const config: Config = new Proxy({} as Config, {
+  get(_target, prop) {
+    const instance = Config.getInstance() as unknown as Record<string | symbol, unknown>;
+    const value = instance[prop];
+    return typeof value === 'function' ? value.bind(instance) : value;
+  },
+});
 
 // Export for direct access
 export default config;

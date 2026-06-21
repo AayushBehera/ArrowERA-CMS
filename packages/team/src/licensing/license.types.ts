@@ -4,7 +4,7 @@ export interface License {
   organizationId: string | null;
   tier: 'community' | 'professional' | 'enterprise';
   status: 'active' | 'expired' | 'revoked' | 'suspended';
-  issuedAt: Date;
+  issuedAt: Date | null;
   expiresAt: Date | null;
   activatedAt: Date | null;
   deactivatedAt: Date | null;
@@ -12,8 +12,8 @@ export interface License {
   maxWorkspaces: number | null;
   maxTeams: number | null;
   features: string[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | null;
+  updatedAt: Date | null;
 }
 
 export interface CreateLicenseInput {

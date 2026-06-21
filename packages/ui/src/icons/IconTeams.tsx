@@ -1,4 +1,4 @@
-import { createIcon } from '../utils';
+import { createIcon } from './utils';
 
 export const IconTeams = createIcon('IconTeams', (
   <>

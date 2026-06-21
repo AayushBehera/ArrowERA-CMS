@@ -11,6 +11,13 @@ function createMockRedisClient(): RedisClient {
     get: vi.fn(async (key: string) => store.get(key) || null),
     set: vi.fn(async (...args: string[]) => {
       const [key, value, ...flags] = args;
+      // Honor SET NX (only if absent) / XX (only if present) semantics like real Redis.
+      if (flags.includes('NX') && store.has(key)) {
+        return null;
+      }
+      if (flags.includes('XX') && !store.has(key)) {
+        return null;
+      }
       store.set(key, value);
       return 'OK';
     }),
@@ -172,7 +179,9 @@ describe('RedisCache', () => {
     });
 
     it('should decrement counter', async () => {
-      await cache.set('ctr', 10);
+      // Counters use raw Redis INCR/DECR, so seed via incr rather than set()
+      // (set() stores a JSON envelope that DECR cannot operate on).
+      await cache.incr('ctr', 10);
       const val = await cache.decr('ctr', 3);
       expect(val).toBe(7);
     });

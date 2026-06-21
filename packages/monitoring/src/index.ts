@@ -26,8 +26,9 @@ export interface Metric {
  * Counter metric - only increases
  */
 export class Counter {
+  readonly type: MetricType = 'counter';
   private value: number = 0;
-  private labels: MetricLabels;
+  readonly labels: MetricLabels;
 
   constructor(public name: string, public help: string, labels?: MetricLabels) {
     this.labels = labels || {};
@@ -50,8 +51,9 @@ export class Counter {
  * Gauge metric - can increase or decrease
  */
 export class Gauge {
+  readonly type: MetricType = 'gauge';
   private value: number = 0;
-  private labels: MetricLabels;
+  readonly labels: MetricLabels;
 
   constructor(public name: string, public help: string, labels?: MetricLabels) {
     this.labels = labels || {};
@@ -89,10 +91,11 @@ export class Gauge {
  * Histogram metric - tracks distribution of values
  */
 export class Histogram {
-  private buckets: Map<number, number>;
+  readonly type: MetricType = 'histogram';
+  buckets: Map<number, number>;
   private sum: number = 0;
   private count: number = 0;
-  private labels: MetricLabels;
+  readonly labels: MetricLabels;
   private bucketBoundaries: number[];
 
   constructor(

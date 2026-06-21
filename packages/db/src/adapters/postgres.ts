@@ -146,7 +146,7 @@ export class PostgresAdapter implements DatabaseAdapter {
   async queryValue<T = any>(sql: string, params: any[] = []): Promise<T | null> {
     const result = await this.query<T>(sql, params);
     if (result.rows.length === 0) return null;
-    const firstRow = result.rows[0];
+    const firstRow = result.rows[0] as Record<string, any>;
     return firstRow[Object.keys(firstRow)[0]] as T;
   }
 

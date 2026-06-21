@@ -2,12 +2,12 @@ export interface Session {
   id: string;
   userId: string;
   expiresAt: Date;
-  createdAt: Date;
-  lastActiveAt: Date;
+  createdAt: Date | null;
+  lastActiveAt: Date | null;
   ipAddress: string | null;
   userAgent: string | null;
   deviceId: string | null;
-  isRevoked: boolean;
+  isRevoked: boolean | null;
   revokedAt: Date | null;
   revokeReason: string | null;
 }
@@ -16,15 +16,15 @@ export interface SessionWithUser extends Session {
   user: {
     id: string;
     email: string;
-    status: string;
-  };
+    status: string | null;
+  } | null;
 }
 
 export interface CreateSessionInput {
   userId: string;
-  ipAddress?: string;
-  userAgent?: string;
-  deviceId?: string;
+  ipAddress?: string | null;
+  userAgent?: string | null;
+  deviceId?: string | null;
 }
 
 export interface Device {

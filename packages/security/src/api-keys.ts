@@ -81,7 +81,10 @@ export class ApiKeyManager {
 
     // Update last used timestamp
     record.lastUsedAt = Date.now();
-    this.apiKeys.set(this.findKeyId(keyHash), record);
+    const keyId = this.findKeyId(keyHash);
+    if (keyId) {
+      this.apiKeys.set(keyId, record);
+    }
 
     return { valid: true, userId: record.userId, scopes: record.scopes };
   }

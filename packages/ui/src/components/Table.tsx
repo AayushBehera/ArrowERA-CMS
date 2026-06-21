@@ -111,7 +111,7 @@ function TableInner<T>(
   /* ── Keyboard Navigation ── */
 
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLTableSectionElement>, index: number) => {
+    (e: React.KeyboardEvent<HTMLElement>, index: number) => {
       let next = index;
       if (e.key === 'ArrowDown') {
         e.preventDefault();
@@ -380,8 +380,8 @@ function TableInner<T>(
 
 /* ── Export with forwardRef & generic support ── */
 
-export const Table = forwardRef(TableInner) as <T>(
+export const Table = forwardRef(TableInner) as (<T>(
   props: TableProps<T> & { ref?: React.ForwardedRef<HTMLTableElement> }
-) => ReturnType<typeof TableInner>;
+) => ReturnType<typeof TableInner>) & { displayName?: string };
 
 Table.displayName = 'Table';

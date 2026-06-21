@@ -47,8 +47,8 @@ export class MFAService {
       issuer,
       label: userId,
       algorithm: 'SHA1',
-      digits: this.TOTP_DIGITS,
-      period: this.TOTP_PERIOD,
+      digits: MFAService.TOTP_DIGITS,
+      period: MFAService.TOTP_PERIOD,
       secret,
     });
 
@@ -77,11 +77,11 @@ export class MFAService {
       const totp = new OTPAuth.TOTP({
         secret,
         algorithm: 'SHA1',
-        digits: this.TOTP_DIGITS,
-        period: this.TOTP_PERIOD,
+        digits: MFAService.TOTP_DIGITS,
+        period: MFAService.TOTP_PERIOD,
       });
 
-      const delta = totp.validate({ token, window: this.TOTP_WINDOW });
+      const delta = totp.validate({ token, window: MFAService.TOTP_WINDOW });
       
       if (delta === null) {
         return { valid: false };
@@ -183,7 +183,7 @@ export class MFAService {
    */
   getRemainingTime(): number {
     const now = Date.now();
-    const period = this.TOTP_PERIOD * 1000;
+    const period = MFAService.TOTP_PERIOD * 1000;
     return period - (now % period);
   }
 }
